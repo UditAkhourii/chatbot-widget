@@ -1,71 +1,56 @@
+// chatbot-widget.js
 (function() {
-  // Wait until the DOM is ready
-  document.addEventListener('DOMContentLoaded', function() {
-    // Default URL for the chatbot
-    var chatbotUrl = window.chatbotUrl || "https://app.udility.com/repl"; 
-    
-    // Create the chat widget
-    var chatWidget = document.createElement('div');
-    chatWidget.id = 'chat-widget';
-    chatWidget.style.display = 'none'; // Initially hidden
-    
-    // Create the chat iframe
-    var chatIframe = document.createElement('iframe');
-    chatIframe.id = 'chat-iframe';
-    chatIframe.src = chatbotUrl;
-    chatIframe.style.width = '100%';
-    chatIframe.style.height = '100%';
-    chatIframe.style.border = 'none';
-    chatIframe.style.display = 'none'; // Hidden until loaded
-    chatWidget.appendChild(chatIframe);
-    
-    // Create the chat loader (spinner)
-    var chatLoader = document.createElement('div');
-    chatLoader.id = 'chat-loader';
-    var spinner = document.createElement('div');
-    spinner.classList.add('spinner');
-    chatLoader.appendChild(spinner);
-    chatLoader.innerHTML += " Loading..."; // Optional text
-    chatWidget.appendChild(chatLoader);
-    
-    // Create the chat avatar
-    var chatAvatar = document.createElement('div');
-    chatAvatar.id = 'chat-avatar';
-    chatAvatar.style.cursor = 'pointer';
-    
-    // Set the avatar image (this should be passed as an option or hardcoded)
-    var avatarImage = document.createElement('img');
-    avatarImage.src = "https://app.udility.com/wp-content/uploads/2024/11/M62we5h8_400x400.jpg";
-    avatarImage.alt = "Chat Avatar";
-    chatAvatar.appendChild(avatarImage);
-    
-    // Add a message (CTA)
-    var chatCta = document.createElement('div');
-    chatCta.id = 'chat-cta';
-    chatCta.innerHTML = "Want to Talk? Chat Now";
-    
-    // Append avatar and CTA to the body
-    document.body.appendChild(chatAvatar);
-    document.body.appendChild(chatCta);
-    document.body.appendChild(chatWidget);
-    
-    // Avatar click logic to show/hide the chat widget
-    chatAvatar.addEventListener('click', function() {
-      if (chatWidget.style.display === 'none') {
-        chatWidget.style.display = 'block';
-        chatLoader.style.display = 'flex';
-        chatIframe.style.display = 'none';
-        
-        // Load the iframe content dynamically
-        chatIframe.onload = function() {
-          chatLoader.style.display = 'none';
-          chatIframe.style.display = 'block';
-        };
-      } else {
-        chatWidget.style.display = 'none';
-        chatIframe.src = ''; // Stop loading the iframe
-        chatCta.style.display = 'block'; // Show CTA when closed
-      }
-    });
-  });
+    // Function to create the chat widget iframe
+    function createChatWidget(chatbotUrl) {
+        const chatWidget = document.createElement('div');
+        chatWidget.id = 'chat-widget';
+        chatWidget.style.display = 'none';  // Hidden by default
+
+        const iframe = document.createElement('iframe');
+        iframe.src = chatbotUrl;
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.frameBorder = '0';
+
+        chatWidget.appendChild(iframe);
+        document.body.appendChild(chatWidget);
+
+        return chatWidget;
+    }
+
+    // Function to initialize the chatbot
+    function initChatBot() {
+        // Get the chatbot URL from the script's attribute
+        const chatbotUrl = document.querySelector('script[src*="chatbot-widget.js"]').getAttribute('chatbotUrl');
+
+        if (!chatbotUrl) {
+            console.error('Chatbot URL is missing');
+            return;
+        }
+
+        // Create the chat widget
+        const chatWidget = createChatWidget(chatbotUrl);
+
+        // Show the widget on click
+        const chatButton = document.createElement('div');
+        chatButton.id = 'chat-cta';
+        chatButton.innerHTML = 'Want to Talk? Chat Now';
+        chatButton.style.position = 'fixed';
+        chatButton.style.bottom = '20px';
+        chatButton.style.right = '20px';
+        chatButton.style.backgroundColor = '#000';
+        chatButton.style.color = '#fff';
+        chatButton.style.padding = '10px';
+        chatButton.style.borderRadius = '5px';
+        chatButton.style.cursor = 'pointer';
+
+        document.body.appendChild(chatButton);
+
+        chatButton.addEventListener('click', function() {
+            chatWidget.style.display = 'block';  // Show the widget on click
+        });
+    }
+
+    // Initialize the chatbot when the document is loaded
+    document.addEventListener('DOMContentLoaded', initChatBot);
 })();

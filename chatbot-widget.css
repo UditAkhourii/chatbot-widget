@@ -1,70 +1,60 @@
-/* Styles for the chat button and widget */
-#chat-avatar {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 72px; /* Avatar size */
-  height: 72px;
-  border-radius: 50%;
-  background-color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+/* chatbot-widget.css */
 
-#chat-avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-/* Styles for the CTA message */
-#chat-cta {
-  position: fixed;
-  bottom: 100px;
-  right: 20px;
-  background-color: #000;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* Styles for the chat widget */
+/* Basic styling for the chat widget */
 #chat-widget {
-  display: none;
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 352px;
-  height: 600px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 90px; /* Positioned above the chat button */
+    right: 20px;
+    width: 360px;
+    height: 600px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
+/* Styling for the call-to-action button */
+#chat-cta {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the CTA button */
+#chat-cta:hover {
+    background-color: #333;
+}
+
+/* Style for the loading spinner inside the widget (if needed) */
 #chat-loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 16px;
-  color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 16px;
+    color: #007bff;
 }
 
 .spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid #007bff;
-  border-top: 3px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #007bff;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
